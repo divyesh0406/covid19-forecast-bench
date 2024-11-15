@@ -6,8 +6,8 @@ import threading
 
 
 DAY_ZERO = datetime.datetime(2020,1,22)
-FORECASTS_NAMES = "forecasts_filenames.txt"
-MODEL_NAMES = "models.txt"
+FORECASTS_NAMES = "scripts/evaluate-script/forecasts_filenames.txt"
+MODEL_NAMES = "scripts/evaluate-script/models.txt"
 US_DEATH_URL = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/us_deaths.csv"
 US_DEATH_FORECASTS_DIR = "../../formatted-forecasts/US-COVID/state-death/"
 US_CASE_URL = "https://raw.githubusercontent.com/scc-usc/ReCOVER-COVID-19/master/results/forecasts/us_data.csv"
@@ -139,6 +139,9 @@ def evaluate(inc_truth, model_name, metric, reports, regions, model_evals, forec
                     for region in regions:
                         model_evals[region][i].loc[model_name, interval] = mape_df[interval][mape_df["State"] == region].tolist()[0]
 
+# Adding a Bogus Error Metric (BEM)
+       
+
 def generate_average_evals(regions, model_evals):
     average_evals = {}
     for region in regions:
@@ -231,6 +234,9 @@ def run():
     average_evals = generate_average_evals(state_col, model_evals)
     for state in average_evals:
         average_evals[state].to_csv(output_dir + "mape_avg_{1}.csv".format(i+1, state))
+
+    #Bogus Eval
+
 
 if __name__ == "__main__":
     run()

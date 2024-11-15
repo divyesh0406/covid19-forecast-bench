@@ -136,7 +136,7 @@ class Evaluation extends Component {
       mainGraphData: {},
       rankingTableData: [],
       metrics: "mae",
-      metricsList: ["mae", "mape"],
+      metricsList: ["mae", "mape","bogus"],
       forecastType: "state_death_eval",
       timeSpan: "avg",
       maxDateRange: [],
@@ -162,7 +162,8 @@ class Evaluation extends Component {
 
   getUrl = () => {
     let url =
-      "https://raw.githubusercontent.com/scc-usc/covid19-forecast-bench/master/evaluation/US-COVID/state_death_eval/mae_avg_states.csv";
+    "evaluation/US-COVID/state_death_eval/mae_avg_states.csv";
+    // "https://raw.githubusercontent.com/scc-usc/covid19-forecast-bench/master/evaluation/US-COVID/state_death_eval/mae_avg_states.csv";
     if (this.state.timeSpan == "avg") {
       url = `https://raw.githubusercontent.com/scc-usc/covid19-forecast-bench/master/evaluation/${this.state.scope}/${this.state.forecastType}/${this.state.metrics}_avg_${this.state.region}.csv`;
     } else {
@@ -170,6 +171,17 @@ class Evaluation extends Component {
     }
     return url;
   };
+//   getUrl = () => {
+//     let url = "evaluation/US-COVID/state_death_eval/mae_avg_states.csv";
+//     if (this.state.timeSpan == "avg") {
+//         url = `evaluation/US-COVID/state_death_eval/${this.state.scope}/${this.state.forecastType}/${this.state.metrics}_avg_${this.state.region}.csv`;
+//     } else {
+//         url = `evaluation/US-COVID/state_death_eval/${this.state.scope}/${this.state.forecastType}/${this.state.metrics}_${this.state.timeSpan}_weeks_ahead_${this.state.region}.csv`;
+//     }
+//     return url;
+// };
+
+
 
   initialize = result => {
     result.data.map((csvRow, index) => {
@@ -770,6 +782,7 @@ class Evaluation extends Component {
                     >
                       <Option value="mae">MAE</Option>
                       <Option value="mape">MAPE</Option>
+                      <Option value="bogus">BOGUS</Option>
                     </Select>
                   </Form.Item>
 
