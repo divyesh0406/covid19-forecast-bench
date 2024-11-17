@@ -164,7 +164,7 @@ class Evaluation extends Component {
     let url =
     "https://raw.githubusercontent.com/divyesh0406/covid19-forecast-bench/refs/heads/master/evaluation/US-COVID/state_death_eval/mae_avg_states.csv";
     // "https://raw.githubusercontent.com/scc-usc/covid19-forecast-bench/master/evaluation/US-COVID/state_death_eval/mae_avg_states.csv";
-    if (this.state.timeSpan == "avg") {
+    if (this.state.timeSpan === "avg") {
       url = `https://raw.githubusercontent.com/divyesh0406/covid19-forecast-bench/refs/heads/master/evaluation/${this.state.scope}/${this.state.forecastType}/${this.state.metrics}_avg_${this.state.region}.csv`;
     } else {
       url = `https://raw.githubusercontent.com/divyesh0406/covid19-forecast-bench/refs/heads/master/evaluation/${this.state.scope}/${this.state.forecastType}/${this.state.metrics}_${this.state.timeSpan}_weeks_ahead_${this.state.region}.csv`;
@@ -225,7 +225,7 @@ class Evaluation extends Component {
     }
 
     for (const d in result.data[0]) {
-      if (d != "") {
+      if (d !== "") {
         anchorDatapoints.dataSeries.push({
           x: d,
           y: 0,
@@ -249,6 +249,8 @@ class Evaluation extends Component {
               x: col,
               y: val,
             });
+            console.log(method, "This is a methhod gettinh CSV");
+            
           }
         }
         if (!allNaN) {
@@ -313,13 +315,13 @@ class Evaluation extends Component {
               relativeErrorSum += dp.y / baselineAverageError;
             }
           }
-          if (!isNaN(dp.y) && dp.x == selectedDateRange[0]) {
+          if (!isNaN(dp.y) && dp.x === selectedDateRange[0]) {
             fromSelectedStartDate = true;
           }
-          if (!isNaN(dp.y) && dp.x == selectedDateRange[1]) {
+          if (!isNaN(dp.y) && dp.x === selectedDateRange[1]) {
             upToSelectedEndDate = true;
           }
-          if (!isNaN(dp.y) && dp.x == maxDateRange[1]) {
+          if (!isNaN(dp.y) && dp.x === maxDateRange[1]) {
             updating = true;
           }
         });
@@ -417,7 +419,7 @@ class Evaluation extends Component {
     } else {
       mlMethods = mlMethods.filter(method => method !== targetMethod);
     }
-    allMethods = allMethods.filter(method => method != targetMethod);
+    allMethods = allMethods.filter(method => method !== targetMethod);
 
     this.setState(prevState => {
       return {
